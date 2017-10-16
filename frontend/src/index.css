@@ -6870,3 +6870,25 @@ legend {
 .modal .close {
   color: #333333;
 }
+
+.postTeaser-category a {
+  color: #4582ec;
+  text-decoration: none;
+}
+
+.postTeaser-category a:hover {
+  color: #4582ec;
+  text-decoration: none;
+}
+
+.sorter {
+  margin-bottom: 10px;
+}
+
+.comment{
+  font-size: 16px;
+}
+
+.comment ul {
+  margin-top: 10px;
+}
