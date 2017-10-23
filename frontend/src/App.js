@@ -4,6 +4,9 @@ import { withRouter } from 'react-router-dom'
 import {
   receiveCategories,
   fetchCategories,
+  createPost,
+  createPostComment,
+  fetchDeletePost,
   receivePosts,
   fetchPosts,
   fetchPost,
@@ -21,8 +24,9 @@ import {
 
 import { Route }      from 'react-router-dom'
 import Header         from './components/shared/Header'
+import NewPost        from './components/posts/NewPost' 
 import PostsList      from './components/posts/PostsList'
-import PostDetail    from './components/posts/PostDetail'
+import PostDetail     from './components/posts/PostDetail'
 import Home           from './components/Home'
 import CategoryHome   from './components/categories/CategoryHome'
 
@@ -36,14 +40,28 @@ class App extends Component {
     this.getPostsByCategory = this.getPostsByCategory.bind(this)
     this.sortPostsByDate    = this.sortPostsByDate.bind(this)
     this.sortPostsByScore   = this.sortPostsByScore.bind(this)
+    this.createPost         = this.createPost.bind(this)
+    this.deletePost         = this.deletePost.bind(this)
   }
 
   componentDidMount() {
     this.props.fetchCategories()
   }
 
+  deletePost(id) {
+    this.props.fetchDeletePost(id)
+  }
+
   getAllPosts() {
     this.props.fetchPosts()
+  }
+
+  createPost(body) {
+    this.props.createPost(body)
+  } 
+
+  createPostComment(body) {
+    this.props.createPostComment(body)
   }
 
   getPost(post) {
@@ -80,8 +98,15 @@ class App extends Component {
               getAllPosts={this.getAllPosts}
               sortPostsByDate={this.sortPostsByDate}
               sortPostsByScore={this.sortPostsByScore}
+              fetchDeletePost={this.deletePost}
             />
   			  )} />
+          <Route strict path="/admin/posts/new-post" render={({match}) => (
+            <NewPost
+             categories={categories}
+             createPost={this.createPost}
+            />
+          )} />
           <Route exact path="/:category" render={({match}) => (
             <CategoryHome
               posts={posts}
@@ -90,6 +115,7 @@ class App extends Component {
               getPostsByCategory={this.getPostsByCategory}
               sortPostsByDate={this.sortPostsByDate}
               sortPostsByScore={this.sortPostsByScore}
+              fetchDeletePost={this.deletePost}
             />
           )} />
           <Route exact path="/:category/:post_id" render={({match}) => (
@@ -100,8 +126,10 @@ class App extends Component {
               post={post}
               comments={comments}
               getPost={this.getPost}
-              getPostComments={this.getPostComments}/>
+              getPostComments={this.getPostComments}
+              createPostComment={this.createPostComment}/>
           )} />
+          
         </div>
       </div>
     );
@@ -125,7 +153,10 @@ function mapDispatchToProps (dispatch) {
     fetchPosts:           () => fetchPosts(dispatch),
     fetchPost:            (post) => fetchPost(dispatch, post),
     fetchPostComments:    (post) => fetchPostComments(dispatch, post),
-    fetchPostsByCategory: (category) => fetchPostsByCategory(dispatch, category)
+    fetchPostsByCategory: (category) => fetchPostsByCategory(dispatch, category),
+    createPost:           (body) => createPost(dispatch, body), 
+    fetchDeletePost:      (post) => fetchDeletePost(dispatch, post),
+    createPostComment:    (comment) => createPostComment(dispatch, comment)
   }
 }
 

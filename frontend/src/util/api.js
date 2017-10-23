@@ -2,7 +2,8 @@ const CONTENT_API = process.env.CONTENT_API
 const AUTH_TOKEN  = process.env.AUTH_TOKEN
 
 const headers = {
-  'Authorization': 'sdasdd'
+  'Authorization': 'sdasdd',
+  'Content-type':  'application/json'
 }
 
 export function  getCategories () {
@@ -53,4 +54,42 @@ export function getPostComments(id) {
     .then((data) => {
       return data
     })
+}
+
+export function addPost(body) {
+  return fetch(`http://localhost:3001/posts`, { 
+    method: 'post',
+    body:    JSON.stringify(body),
+    headers: headers })
+  .then((res) => {
+    return res.json()
+  })
+  .then((data) => {
+    return data
+  })
+}
+
+export function deletePost(id) {
+  return fetch(`http://localhost:3001/posts/${id}`, { 
+    method: 'delete',
+    headers: headers })
+  .then((res) => {
+    return res.json()
+  })
+  .then((data) => {
+    return data
+  })
+}
+
+export function addPostComment(body) {
+  return fetch(`http://localhost:3001/comments`, { 
+    method: 'post',
+    body:   JSON.stringify(body),
+    headers: headers })
+  .then((res) => {
+    return res.json()
+  })
+  .then((data) => {
+    return data
+  })
 }

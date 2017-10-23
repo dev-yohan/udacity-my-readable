@@ -67,7 +67,8 @@ class CategoryHome extends Component {
         </div>
         <PostsList
           posts={this.props.posts}
-          categories={this.props.categories}/>
+          categories={this.props.categories}
+          fetchDeletePost={this.props.fetchDeletePost}/>
       </div>
     )
   }

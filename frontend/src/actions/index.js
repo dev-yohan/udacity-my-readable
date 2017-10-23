@@ -14,6 +14,17 @@ export const ADD_COMMENT           = 'ADD_COMMENT'
 export const EDIT_COMMENT          = 'EDIT_COMMENT'
 export const DELETE_COMMENT        = 'DELETE_COMMENT'
 
+export function createPost(dispatch, body) {
+  ContentApi
+  .addPost(body)
+  .then(categories => dispatch(addPost()))
+}
+
+export function fetchDeletePost(dispatch, id) {
+  ContentApi
+  .deletePost(id)
+  .then(categories => dispatch(deletePost(id)))
+}
 
 export function fetchCategories (dispatch) {
   ContentApi
@@ -43,6 +54,12 @@ export function fetchPostComments (dispatch, post) {
   ContentApi
   .getPostComments(post)
   .then(comments => dispatch(receivePostComments(comments)))
+}
+
+export function createPostComment(dispatch, body) {
+  ContentApi
+  .addPostComment(body)
+  .then(categories => dispatch(addComment()))
 }
 
 export function receivePostByCategory(posts) {
@@ -104,9 +121,10 @@ export function editPost () {
   }
 }
 
-export function deletePost () {
+export function deletePost (id) {
   return {
-    type: DELETE_POST
+    type: DELETE_POST,
+    id
   }
 }
 
@@ -127,3 +145,5 @@ export function deleteComment () {
     type: DELETE_COMMENT
   }
 }
+
+

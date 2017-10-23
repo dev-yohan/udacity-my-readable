@@ -11,7 +11,7 @@ function truncate(str) {
 }
 
 
-export default function PostsTeaser ({ post, category }) {
+export default function PostsTeaser ({ post, category, fetchDeletePost }) {
   const postDate = moment(new Date(post.timestamp));
 
   return (
@@ -20,7 +20,9 @@ export default function PostsTeaser ({ post, category }) {
         <div className='caption'>
           {category &&
             <Link to={`${category.path}/${post.id}`}>
-              <h3>{post.title}</h3>
+              <h3>
+               {post.title}  
+              </h3>
             </Link>
           }
           <h4>{`By ${post.author}`}</h4>
@@ -44,6 +46,20 @@ export default function PostsTeaser ({ post, category }) {
               }
             </li>
           </ul>
+          <div className='row post_controls'>
+            <div className='col-lg-6 col-md-6 col-sm-6 col-xs-6'>
+              <button className='btn btn-danger btn-xs' onClick={() => fetchDeletePost(post.id)}>
+                <span className="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                Delete post
+              </button>
+            </div>
+            <div className='col-lg-6 col-md-6 col-sm-6 col-xs-6'>
+              <button className='pull-right btn btn-info btn-xs'>
+                <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>  
+                Edit post
+              </button>
+            </div>  
+          </div>  
         </div>
       </div>
     </div>

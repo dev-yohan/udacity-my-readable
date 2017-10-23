@@ -6892,3 +6892,14 @@ legend {
 .comment ul {
   margin-top: 10px;
 }
+
+.add_post {
+  margin-top: 22px;
+  margin-bottom: 10px;
+}
+
+.post_controls {
+  margin-top: 10px;
+  font-size:13px;
+  font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}

@@ -72,7 +72,12 @@ function readableManager (state = initialState, action) {
     case EDIT_POST:
       return state
     case DELETE_POST:
-      return state
+      return {
+        categories: state.categories,
+        posts:      state.posts.filter((x) => x.id !== action.id),
+        post:       state.post,
+        comments:   state.comments
+      }
     case ADD_COMMENT:
       return state
     case EDIT_COMMENT:

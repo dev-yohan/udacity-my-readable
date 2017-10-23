@@ -3,6 +3,7 @@ import Commentslist       from '../comments/CommentsList'
 import { Link }           from 'react-router-dom'
 import Moment             from 'react-moment'
 import moment             from 'moment'
+import PostComment        from './PostComment'
 
 class PostDetail extends Component {
 
@@ -59,9 +60,21 @@ class PostDetail extends Component {
         </div>
         <div className='row'>
           <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+            <button 
+            className='btn btn-success btn-xs' 
+            data-toggle="modal" 
+            data-target="#myModal">
+              <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+              Add new comment
+            </button>
+          </div>
+        </div>    
+        <div className='row'>
+          <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
             <Commentslist comments={comments}/>
           </div>
         </div>
+        <PostComment createPostComment={this.props.createPostComment}/>
       </div>
     )
   }

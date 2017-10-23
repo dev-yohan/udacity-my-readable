@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import PostsList from './posts/PostsList'
+import { Link } from 'react-router-dom'
 
 class Home extends Component {
 
@@ -43,13 +44,22 @@ class Home extends Component {
                 <option value="select">Select</option>
                 <option value="date">Date</option>
                 <option value="score">Vote score</option>
-               </select>
+              </select>
             </div>
           </div>
         </div>
+        <div className='row'>
+          <div className='col-lg-10 col-md-10 col-sm-10 col-xs-10'>
+            <h1>Posts</h1>
+          </div>
+          <div className='col-lg-2 col-md-2 col-sm-2 col-xs-2'>
+            <Link to='/admin/posts/new-post' className="btn btn-primary add_post pull-right">Create Post</Link>
+          </div>   
+        </div>  
         <PostsList
           posts={this.props.posts}
-          categories={this.props.categories}/>
+          categories={this.props.categories}
+          fetchDeletePost={this.props.fetchDeletePost}/>
       </div>
     )
   }
