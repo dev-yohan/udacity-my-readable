@@ -9,6 +9,14 @@ class PostDetail extends Component {
 
   constructor(props) {
     super(props);
+    this.triggerVote = this.triggerVote.bind(this)
+  }
+
+  triggerVote (vote){ 
+    this.props.addPostVote(
+      this.props.postId,
+      {option: vote}
+    )
   }
 
   componentDidMount() {
@@ -28,23 +36,35 @@ class PostDetail extends Component {
     return (
       <div>
         {category && post &&
-          <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
-            <ul className="breadcrumb">
-              <li>
-                <Link to='/'>Home</Link>
-              </li>
-              <li>
-                <Link to={`/${category.path}`}>{category.name}</Link>
-              </li>
-              <li className="active">
-                {post.title}
-              </li>
-            </ul>
-          </div>
+          <div className='row'>
+            <div className='col-lg-10 col-md-10 col-sm-12 col-xs-12'>
+              <ul className="breadcrumb">
+                <li>
+                  <Link to='/'>Home</Link>
+                </li>
+                <li>
+                  <Link to={`/${category.path}`}>{category.name}</Link>
+                </li>
+                <li className="active">
+                  {post.title}
+                </li>
+              </ul>
+            </div>
+            <div className='col-lg-2 col-md-2 col-sm-12 col-xs-12 vote_block'>
+              Rate this post
+              <a onClick={() => this.triggerVote("upVote")}>
+                <span className="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+              </a>
+              <a onClick={() => this.triggerVote("downVote")}>
+                <span className="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+              </a>
+            </div>
+          </div>    
         }
         <div className='row'>
           {post &&
             <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+              <span className="badge">{` ${post.voteScore} votes`}</span>
               <h1>{post.title}</h1>
               <h4>
                 {`By ${post.author} `}
@@ -71,10 +91,17 @@ class PostDetail extends Component {
         </div>    
         <div className='row'>
           <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
-            <Commentslist comments={comments}/>
+            <Commentslist 
+            comments={comments}
+            addCommentVote={this.props.addCommentVote}/>
           </div>
         </div>
-        <PostComment createPostComment={this.props.createPostComment}/>
+        {post &&
+          <PostComment 
+          createPostComment={this.props.createPostComment} 
+          postId={post.id}
+          category={category}/>
+        }
       </div>
     )
   }

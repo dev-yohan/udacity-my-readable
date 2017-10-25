@@ -2,7 +2,7 @@ import React from 'react'
 import Moment             from 'react-moment'
 import moment             from 'moment'
 
-export default function CommentBlock({ comment }) {
+export default function CommentBlock({ comment, addCommentVote }) {
   const commentDate = comment ? moment(new Date(comment.timestamp)) : null;
 
   return (
@@ -21,12 +21,12 @@ export default function CommentBlock({ comment }) {
           </a>
         </li>
         <li>
-          <a>
+          <a onClick={e => addCommentVote(comment.id, {parentId:comment.parentId, option: 'upVote'})}>
             <span className="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
           </a>
         </li>
         <li>
-          <a>
+          <a  onClick={e => addCommentVote(comment.id, {parentId:comment.parentId, option: 'downVote'})}>
             <span className="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
           </a>
         </li>

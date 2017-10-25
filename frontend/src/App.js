@@ -12,6 +12,7 @@ import {
   fetchPost,
   fetchPostsByCategory,
   fetchPostComments,
+  addPostVote,
   sortPostsByDate,
   sortPostsByScore,
   addPost,
@@ -19,7 +20,8 @@ import {
   deletePost,
   addComment,
   editComment,
-  deleteComment
+  deleteComment,
+  addCommentVote
 } from './actions'
 
 import { Route }      from 'react-router-dom'
@@ -42,6 +44,9 @@ class App extends Component {
     this.sortPostsByScore   = this.sortPostsByScore.bind(this)
     this.createPost         = this.createPost.bind(this)
     this.deletePost         = this.deletePost.bind(this)
+    this.createPostComment  = this.createPostComment.bind(this)
+    this.addPostVote        = this.addPostVote.bind(this)
+    this.addCommentVote     = this.addCommentVote.bind(this)    
   }
 
   componentDidMount() {
@@ -62,6 +67,14 @@ class App extends Component {
 
   createPostComment(body) {
     this.props.createPostComment(body)
+  }
+
+  addPostVote(post, body) {
+    this.props.addPostVote(post, body)
+  }
+
+  addCommentVote(comment, body) {
+    this.props.addCommentVote(comment, body)
   }
 
   getPost(post) {
@@ -127,7 +140,9 @@ class App extends Component {
               comments={comments}
               getPost={this.getPost}
               getPostComments={this.getPostComments}
-              createPostComment={this.createPostComment}/>
+              createPostComment={this.createPostComment}
+              addPostVote={this.addPostVote}
+              addCommentVote={this.addCommentVote}/>
           )} />
           
         </div>
@@ -156,7 +171,9 @@ function mapDispatchToProps (dispatch) {
     fetchPostsByCategory: (category) => fetchPostsByCategory(dispatch, category),
     createPost:           (body) => createPost(dispatch, body), 
     fetchDeletePost:      (post) => fetchDeletePost(dispatch, post),
-    createPostComment:    (comment) => createPostComment(dispatch, comment)
+    createPostComment:    (comment) => createPostComment(dispatch, comment),
+    addPostVote:          (post, body) => addPostVote(dispatch, post, body),
+    addCommentVote:       (comment, body) => addCommentVote(dispatch, comment, body)
   }
 }
 

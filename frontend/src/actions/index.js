@@ -10,9 +10,11 @@ export const SORT_POSTS_BY_SCORE   = 'SORT_POSTS_BY_SCORE'
 export const ADD_POST              = 'ADD_POST'
 export const EDIT_POST             = 'EDIT_POST'
 export const DELETE_POST           = 'DELETE_POST'
+export const VOTE_POST             = 'VOTE_POST'
 export const ADD_COMMENT           = 'ADD_COMMENT'
 export const EDIT_COMMENT          = 'EDIT_COMMENT'
 export const DELETE_COMMENT        = 'DELETE_COMMENT'
+export const VOTE_COMMENT          = 'VOTE_COMMENT'
 
 export function createPost(dispatch, body) {
   ContentApi
@@ -59,7 +61,28 @@ export function fetchPostComments (dispatch, post) {
 export function createPostComment(dispatch, body) {
   ContentApi
   .addPostComment(body)
-  .then(categories => dispatch(addComment()))
+  .then(comment => {
+    dispatch(addComment(comment))
+    fetchPostComments (dispatch, body.parentId)
+  })
+}
+
+export function addPostVote(dispatch, post, body) {
+  ContentApi
+  .addPostVote(post, body)
+  .then(vote => {
+    dispatch(votePost())
+    fetchPost (dispatch, post)
+  })
+}
+
+export function addCommentVote(dispatch, comment, body) {
+  ContentApi
+  .addCommentVote(comment, {option: body.option})
+  .then(vote => {
+    dispatch(voteComment())
+    fetchPostComments (dispatch, body.parentId)
+  })
 }
 
 export function receivePostByCategory(posts) {
@@ -128,9 +151,16 @@ export function deletePost (id) {
   }
 }
 
-export function addComment () {
+export function votePost () {
   return {
-    type: ADD_COMMENT
+    type: VOTE_POST
+  }
+}
+
+export function addComment (comment) {
+  return {
+    type: ADD_COMMENT,
+    comment
   }
 }
 
@@ -143,6 +173,12 @@ export function editComment () {
 export function deleteComment () {
   return {
     type: DELETE_COMMENT
+  }
+}
+
+export function voteComment () {
+  return {
+    type: VOTE_COMMENT
   }
 }
 

@@ -6903,3 +6903,12 @@ legend {
   font-size:13px;
   font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
+.vote_block {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.vote_block a {
+  margin-left: 5px;
+}

@@ -1,13 +1,13 @@
-const CONTENT_API = process.env.CONTENT_API
-const AUTH_TOKEN  = process.env.AUTH_TOKEN
+const CONTENT_API = 'http://localhost:3001'
+const AUTH_TOKEN  = 'my-very-secret-token'
 
 const headers = {
-  'Authorization': 'sdasdd',
+  'Authorization': AUTH_TOKEN,
   'Content-type':  'application/json'
 }
 
 export function  getCategories () {
-  return fetch(`http://localhost:3001/categories`, { headers })
+  return fetch(`${CONTENT_API}/categories`, { headers })
     .then((res) => {
       return res.json()
     })
@@ -17,7 +17,7 @@ export function  getCategories () {
 }
 
 export function getPosts() {
-  return fetch(`http://localhost:3001/posts`, { headers })
+  return fetch(`${CONTENT_API}/posts`, { headers })
     .then((res) => {
       return res.json()
     })
@@ -27,7 +27,7 @@ export function getPosts() {
 }
 
 export function getPostsByCategory(category) {
-  return fetch(`http://localhost:3001/${category}/posts`, { headers })
+  return fetch(`${CONTENT_API}/${category}/posts`, { headers })
     .then((res) => {
       return res.json()
     })
@@ -37,7 +37,7 @@ export function getPostsByCategory(category) {
 }
 
 export function getPost(id) {
-  return fetch(`http://localhost:3001/posts/${id}`, { headers })
+  return fetch(`${CONTENT_API}/posts/${id}`, { headers })
     .then((res) => {
       return res.json()
     })
@@ -47,7 +47,7 @@ export function getPost(id) {
 }
 
 export function getPostComments(id) {
-  return fetch(`http://localhost:3001/posts/${id}/comments`, { headers })
+  return fetch(`${CONTENT_API}/posts/${id}/comments`, { headers })
     .then((res) => {
       return res.json()
     })
@@ -57,7 +57,7 @@ export function getPostComments(id) {
 }
 
 export function addPost(body) {
-  return fetch(`http://localhost:3001/posts`, { 
+  return fetch(`${CONTENT_API}/posts`, { 
     method: 'post',
     body:    JSON.stringify(body),
     headers: headers })
@@ -70,7 +70,7 @@ export function addPost(body) {
 }
 
 export function deletePost(id) {
-  return fetch(`http://localhost:3001/posts/${id}`, { 
+  return fetch(`${CONTENT_API}/posts/${id}`, { 
     method: 'delete',
     headers: headers })
   .then((res) => {
@@ -82,7 +82,33 @@ export function deletePost(id) {
 }
 
 export function addPostComment(body) {
-  return fetch(`http://localhost:3001/comments`, { 
+  return fetch(`${CONTENT_API}/comments`, { 
+    method: 'post',
+    body:   JSON.stringify(body),
+    headers: headers })
+  .then((res) => {
+    return res.json()
+  })
+  .then((data) => {
+    return data
+  })
+}
+
+export function addPostVote(postId, body) {
+  return fetch(`${CONTENT_API}/posts/${postId}`, { 
+    method: 'post',
+    body:   JSON.stringify(body),
+    headers: headers })
+  .then((res) => {
+    return res.json()
+  })
+  .then((data) => {
+    return data
+  })
+}
+
+export function addCommentVote(commentId, body) {
+  return fetch(`${CONTENT_API}/comments/${commentId}`, { 
     method: 'post',
     body:   JSON.stringify(body),
     headers: headers })

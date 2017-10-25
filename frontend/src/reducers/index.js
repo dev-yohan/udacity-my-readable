@@ -8,9 +8,11 @@ import {
   ADD_POST,
   EDIT_POST,
   DELETE_POST,
+  VOTE_POST,
   ADD_COMMENT,
   EDIT_COMMENT,
   DELETE_COMMENT,
+  VOTE_COMMENT,
   FETCH_CATEGORY_POSTS
 } from '../actions';
 
@@ -39,14 +41,17 @@ function readableManager (state = initialState, action) {
       return {
         categories: state.categories,
         posts:      state.posts,
-        post:       action.post
+        post:       action.post,
+        comments:   state.comments
       }
     case RECEIVE_POST_COMMENTS:
       return {
         categories: state.categories,
         posts:      state.posts,
         post:       state.post,
-        comments:   action.comments
+        comments:   action.comments.sort(function(a, b) {
+          return b.timestamp - a.timestamp;
+         })
       }
     case SORT_POSTS_BY_DATE:
       return {
@@ -78,12 +83,21 @@ function readableManager (state = initialState, action) {
         post:       state.post,
         comments:   state.comments
       }
+    case VOTE_POST:
+      return state  
     case ADD_COMMENT:
-      return state
+      return {
+        categories: state.categories,
+        posts:      state.posts.filter((x) => x.id !== action.id),
+        post:       state.post,
+        comments:   state.comments
+      }
     case EDIT_COMMENT:
       return state
     case DELETE_COMMENT:
       return state
+    case VOTE_COMMENT:
+      return state  
     default:
       return state
   }
