@@ -2,9 +2,6 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
 import moment from 'moment'
-import {
-  fetchPostComments
-} from '../../actions'
 
 class PostTeaser extends Component {
   constructor(props) {
@@ -35,7 +32,7 @@ class PostTeaser extends Component {
   }
 
   render() {
-    const { category, post, fetchDeletePost, comments } = this.props
+    const { category, post, fetchDeletePost } = this.props
     const postDate = moment(new Date(post.timestamp));
 
     return (

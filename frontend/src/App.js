@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import {
-  receiveCategories,
   fetchCategories,
   createPost,
   createPostComment,
@@ -10,7 +9,6 @@ import {
   fetchEditPost,
   fetchDeleteComment,
   fetchEditComment,
-  receivePosts,
   fetchPosts,
   fetchPost,
   fetchPostsByCategory,
@@ -18,19 +16,12 @@ import {
   addPostVote,
   sortPostsByDate,
   sortPostsByScore,
-  addPost,
-  editPost,
-  deletePost,
-  addComment,
-  editComment,
-  deleteComment,
   addCommentVote
 } from './actions'
 
 import { Route }      from 'react-router-dom'
 import Header         from './components/shared/Header'
 import NewPost        from './components/posts/NewPost' 
-import PostsList      from './components/posts/PostsList'
 import PostDetail     from './components/posts/PostDetail'
 import Home           from './components/Home'
 import CategoryHome   from './components/categories/CategoryHome'

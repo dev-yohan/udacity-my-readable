@@ -92,7 +92,7 @@ function readableManager (state = initialState, action) {
       }
     case VOTE_POST:
       let posts      = state.posts
-      let foundIndex = state.posts.findIndex(x => x.id == action.post.id)
+      let foundIndex = state.posts.findIndex(x => x.id === action.post.id)
       posts[foundIndex] = action.post;
       return {
         categories: state.categories,
