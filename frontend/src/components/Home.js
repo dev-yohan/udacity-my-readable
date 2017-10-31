@@ -59,7 +59,9 @@ class Home extends Component {
         <PostsList
           posts={this.props.posts}
           categories={this.props.categories}
-          fetchDeletePost={this.props.fetchDeletePost}/>
+          fetchDeletePost={this.props.fetchDeletePost}
+          addPostVote={this.props.addPostVote}
+        />
       </div>
     )
   }

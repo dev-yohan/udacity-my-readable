@@ -6904,6 +6904,10 @@ legend {
   font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.post_controls button {
+  margin-right: 1rem;
+}
+
 .vote_block {
   padding-top: 8px;
   padding-bottom: 8px;

@@ -1,8 +1,9 @@
 import React from 'react'
-import Moment             from 'react-moment'
-import moment             from 'moment'
+import Moment from 'react-moment'
+import moment from 'moment'
+import EditComment from './EditComment'
 
-export default function CommentBlock({ comment, addCommentVote }) {
+export default function CommentBlock({ comment, addCommentVote, deleteComment, editComment }) {
   const commentDate = comment ? moment(new Date(comment.timestamp)) : null;
 
   return (
@@ -30,7 +31,21 @@ export default function CommentBlock({ comment, addCommentVote }) {
             <span className="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
           </a>
         </li>
+        <li>
+          <a data-toggle="modal" 
+            data-target="#editCommentModal">
+            <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+          </a>
+        </li>
+        <li>
+          <a  onClick={e => deleteComment(comment.id)}>
+            <span className="glyphicon glyphicon-trash" aria-hidden="true"></span>
+          </a>
+        </li>
       </ul>
+      <EditComment 
+      editComment={editComment}
+      comment={comment}/>
     </blockquote>
   )
 }

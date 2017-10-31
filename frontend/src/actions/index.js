@@ -19,7 +19,18 @@ export const VOTE_COMMENT          = 'VOTE_COMMENT'
 export function createPost(dispatch, body) {
   ContentApi
   .addPost(body)
-  .then(categories => dispatch(addPost()))
+  .then(post => {
+    dispatch(addPost(post))
+  })
+}
+
+export function fetchEditPost(dispatch, postId, body) {
+  ContentApi
+  .editPost(postId, body)
+  .then(post => {
+    dispatch(editPost(post))
+    fetchPost (dispatch, postId)
+  })
 }
 
 export function fetchDeletePost(dispatch, id) {
@@ -64,15 +75,16 @@ export function createPostComment(dispatch, body) {
   .then(comment => {
     dispatch(addComment(comment))
     fetchPostComments (dispatch, body.parentId)
+    fetchPost (dispatch, body.parentId)    
   })
 }
 
 export function addPostVote(dispatch, post, body) {
   ContentApi
   .addPostVote(post, body)
-  .then(vote => {
-    dispatch(votePost())
-    fetchPost (dispatch, post)
+  .then(post => {
+    dispatch(votePost(post))
+    fetchPost (dispatch, post.id)
   })
 }
 
@@ -82,6 +94,24 @@ export function addCommentVote(dispatch, comment, body) {
   .then(vote => {
     dispatch(voteComment())
     fetchPostComments (dispatch, body.parentId)
+  })
+}
+
+export function fetchDeleteComment(dispatch, id) {
+  ContentApi
+  .deleteComment(id)
+  .then(comment => {
+    dispatch(deleteComment(comment))
+    fetchPost (dispatch, comment.parentId)
+  })
+}
+
+export function fetchEditComment(dispatch, commentId, body) {
+  ContentApi
+  .editComment(commentId, body)
+  .then(comment => {
+    dispatch(editComment(comment))
+    fetchPostComments (dispatch, comment.parentId)
   })
 }
 
@@ -132,15 +162,17 @@ export function sortPostsByScore () {
   }
 }
 
-export function addPost () {
+export function addPost (post) {
   return {
-    type: ADD_POST
+    type: ADD_POST,
+    post
   }
 }
 
-export function editPost () {
+export function editPost (post) {
   return {
-    type: EDIT_POST
+    type: EDIT_POST,
+    post
   }
 }
 
@@ -151,9 +183,10 @@ export function deletePost (id) {
   }
 }
 
-export function votePost () {
+export function votePost (post) {
   return {
-    type: VOTE_POST
+    type: VOTE_POST,
+    post
   }
 }
 
@@ -164,15 +197,17 @@ export function addComment (comment) {
   }
 }
 
-export function editComment () {
+export function editComment (comment) {
   return {
-    type: EDIT_COMMENT
+    type: EDIT_COMMENT,
+    comment
   }
 }
 
-export function deleteComment () {
+export function deleteComment (comment) {
   return {
-    type: DELETE_COMMENT
+    type: DELETE_COMMENT,
+    comment
   }
 }
 

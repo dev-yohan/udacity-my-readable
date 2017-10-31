@@ -4,6 +4,7 @@ import { Link }           from 'react-router-dom'
 import Moment             from 'react-moment'
 import moment             from 'moment'
 import PostComment        from './PostComment'
+import EditPost           from './EditPost'
 
 class PostDetail extends Component {
 
@@ -65,6 +66,8 @@ class PostDetail extends Component {
           {post &&
             <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
               <span className="badge">{` ${post.voteScore} votes`}</span>
+              &nbsp;
+              <span className="badge">{` ${post.commentCount} comments`}</span>              
               <h1>{post.title}</h1>
               <h4>
                 {`By ${post.author} `}
@@ -87,20 +90,35 @@ class PostDetail extends Component {
               <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>
               Add new comment
             </button>
+            &nbsp;
+            <button 
+            className='btn btn-success btn-xs' 
+            data-toggle="modal" 
+            data-target="#editModal">
+              <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+              Edit post
+            </button>
           </div>
         </div>    
         <div className='row'>
           <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
             <Commentslist 
             comments={comments}
-            addCommentVote={this.props.addCommentVote}/>
+            addCommentVote={this.props.addCommentVote}
+            deleteComment={this.props.deleteComment}
+            editComment={this.props.editComment}/>
           </div>
         </div>
         {post &&
-          <PostComment 
-          createPostComment={this.props.createPostComment} 
-          postId={post.id}
-          category={category}/>
+          <div>
+            <PostComment 
+            createPostComment={this.props.createPostComment} 
+            postId={post.id}
+            category={category}/>
+            <EditPost 
+            post={post}
+            editPost={this.props.editPost}/>
+          </div>  
         }
       </div>
     )

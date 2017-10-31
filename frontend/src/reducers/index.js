@@ -73,7 +73,14 @@ function readableManager (state = initialState, action) {
         posts:      action.posts
       }
     case ADD_POST:
-      return state
+      let oldPosts = state.posts
+      oldPosts.push(action.post)
+      return {
+        categories: state.categories,
+        posts:      oldPosts,
+        post:       state.post,
+        comments:   state.comments
+      }
     case EDIT_POST:
       return state
     case DELETE_POST:
@@ -84,7 +91,15 @@ function readableManager (state = initialState, action) {
         comments:   state.comments
       }
     case VOTE_POST:
-      return state  
+      let posts      = state.posts
+      let foundIndex = state.posts.findIndex(x => x.id == action.post.id)
+      posts[foundIndex] = action.post;
+      return {
+        categories: state.categories,
+        posts:      posts,
+        post:       state.post,
+        comments:   state.comments
+      }
     case ADD_COMMENT:
       return {
         categories: state.categories,
@@ -93,9 +108,19 @@ function readableManager (state = initialState, action) {
         comments:   state.comments
       }
     case EDIT_COMMENT:
-      return state
+      return {
+        categories: state.categories,
+        posts:      state.posts,
+        post:       state.post,
+        comments:   state.comments
+      }
     case DELETE_COMMENT:
-      return state
+      return {
+        categories: state.categories,
+        posts:      state.posts,
+        post:       state.post,
+        comments:   state.comments.filter((x) => x.id !== action.comment.id)
+      }
     case VOTE_COMMENT:
       return state  
     default:

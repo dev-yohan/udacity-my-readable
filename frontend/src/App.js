@@ -7,6 +7,9 @@ import {
   createPost,
   createPostComment,
   fetchDeletePost,
+  fetchEditPost,
+  fetchDeleteComment,
+  fetchEditComment,
   receivePosts,
   fetchPosts,
   fetchPost,
@@ -44,9 +47,12 @@ class App extends Component {
     this.sortPostsByScore   = this.sortPostsByScore.bind(this)
     this.createPost         = this.createPost.bind(this)
     this.deletePost         = this.deletePost.bind(this)
+    this.deleteComment      = this.deleteComment.bind(this)
     this.createPostComment  = this.createPostComment.bind(this)
     this.addPostVote        = this.addPostVote.bind(this)
     this.addCommentVote     = this.addCommentVote.bind(this)    
+    this.editPost           = this.editPost.bind(this)
+    this.editComment        = this.editComment.bind(this)
   }
 
   componentDidMount() {
@@ -57,13 +63,25 @@ class App extends Component {
     this.props.fetchDeletePost(id)
   }
 
+  deleteComment(id) {
+    this.props.fetchDeleteComment(id)
+  }
+
   getAllPosts() {
     this.props.fetchPosts()
   }
 
   createPost(body) {
     this.props.createPost(body)
-  } 
+  }
+  
+  editPost(post, body){
+    this.props.fetchEditPost(post, body)
+  }
+
+  editComment(comment, body){
+    this.props.fetchEditComment(comment, body)
+  }
 
   createPostComment(body) {
     this.props.createPostComment(body)
@@ -111,7 +129,8 @@ class App extends Component {
               getAllPosts={this.getAllPosts}
               sortPostsByDate={this.sortPostsByDate}
               sortPostsByScore={this.sortPostsByScore}
-              fetchDeletePost={this.deletePost}
+              fetchDeletePost={this.deletePost}  
+              addPostVote={this.addPostVote}     
             />
   			  )} />
           <Route strict path="/admin/posts/new-post" render={({match}) => (
@@ -128,7 +147,8 @@ class App extends Component {
               getPostsByCategory={this.getPostsByCategory}
               sortPostsByDate={this.sortPostsByDate}
               sortPostsByScore={this.sortPostsByScore}
-              fetchDeletePost={this.deletePost}
+              fetchDeletePost={this.deletePost}  
+              addPostVote={this.addPostVote}            
             />
           )} />
           <Route exact path="/:category/:post_id" render={({match}) => (
@@ -142,7 +162,10 @@ class App extends Component {
               getPostComments={this.getPostComments}
               createPostComment={this.createPostComment}
               addPostVote={this.addPostVote}
-              addCommentVote={this.addCommentVote}/>
+              addCommentVote={this.addCommentVote}
+              deleteComment={this.deleteComment}
+              editPost={this.editPost}
+              editComment={this.editComment}/>
           )} />
           
         </div>
@@ -173,7 +196,10 @@ function mapDispatchToProps (dispatch) {
     fetchDeletePost:      (post) => fetchDeletePost(dispatch, post),
     createPostComment:    (comment) => createPostComment(dispatch, comment),
     addPostVote:          (post, body) => addPostVote(dispatch, post, body),
-    addCommentVote:       (comment, body) => addCommentVote(dispatch, comment, body)
+    addCommentVote:       (comment, body) => addCommentVote(dispatch, comment, body),
+    fetchDeleteComment:   (comment) => fetchDeleteComment(dispatch, comment),
+    fetchEditPost:        (post, body) => fetchEditPost(dispatch, post, body),
+    fetchEditComment:     (comment, body) => fetchEditComment(dispatch, comment, body)
   }
 }
 
