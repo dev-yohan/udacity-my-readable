@@ -1,22 +1,43 @@
-# Readable API Server
+# Readable App
 
-This is the starter project for the final assessment project for Udacity's Redux course where you will build a content and comment web app. Users will be able to post content to predefined categories, comment on their posts and other users' posts, and vote on posts and comments. Users will also be able to edit and delete posts and comments.
+## Usage
 
-This repository includes the code for the backend API Server that you'll use to develop and interact with the front-end portion of the project.
+### Install API server
+- Clone/Update reactnd-project-readable-starter (https://github.com/udacity/reactnd-project-readable-starter) project inside api-server folder
 
-## Start Developing
+- npm install or yarn install
+- node server or yarn start
 
-To get started developing right away:
+### Run front-end application
+- npm install or yarn install
+- node server or yarn start
 
-* Install and start the API server
-    - `cd api-server`
-    - `npm install`
-    - `node server`
-* In another terminal window, use Create React App to scaffold out the front-end
-    - `create-react-app frontend`
-    - `cd frontend`
-    - `npm start`
+## Folder structure
+```bash
+├── api-server # Files of the api server
+├── README.md - This file.
+├── frontend
+  └── src
+      ├── components
+          ├── actions # redux actions
+          ├── components
+              ├── categories # React components for categories
+              ├── comments # React components for comments
+              ├── posts # React components for posts
+              ├── share # Shared components
+              ├── Home.js # Home component
+          ├── middleware
+          ├── reducers # react reducers
+          ├── util
+            ├── api.js # API calls wrapper
+            ├── guid.js # Library to create uuid's
+          ├── App.js # Main component
+          ├── index.css # Project CSS 
+      ...
+```
 
-## API Server
 
-Information about the API server and how to use it can be found in its [README file](api-server/README.md).
+
+
+
+ 
