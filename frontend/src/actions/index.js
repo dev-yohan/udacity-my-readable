@@ -36,7 +36,7 @@ export function fetchEditPost(dispatch, postId, body) {
 export function fetchDeletePost(dispatch, id) {
   ContentApi
   .deletePost(id)
-  .then(categories => dispatch(deletePost(id)))
+  .then(post => dispatch(deletePost(post.id)))
 }
 
 export function fetchCategories (dispatch) {

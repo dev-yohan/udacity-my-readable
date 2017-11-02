@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import Moment from 'react-moment'
-import moment from 'moment'
+import Moment   from 'react-moment'
+import moment   from 'moment'
+import EditPost from './EditPost'
 
 class PostTeaser extends Component {
   constructor(props) {
@@ -87,10 +88,14 @@ class PostTeaser extends Component {
                   <span className="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
                 </button>
               
-                <button className='btn btn-info btn-xs'>
+                <button className='btn btn-info btn-xs' data-toggle="modal" data-target={`#editModal_${post.id}`}>
                   <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>  
                   Edit post
                 </button>
+                <EditPost 
+                id={post.id}
+                post={post}
+                editPost={this.props.editPost}/>
               </div>  
             </div>  
           </div>

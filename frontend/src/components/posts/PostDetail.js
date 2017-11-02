@@ -91,13 +91,15 @@ class PostDetail extends Component {
               Add new comment
             </button>
             &nbsp;
-            <button 
-            className='btn btn-success btn-xs' 
-            data-toggle="modal" 
-            data-target="#editModal">
-              <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-              Edit post
-            </button>
+            {post &&
+              <button 
+              className='btn btn-success btn-xs' 
+              data-toggle="modal" 
+              data-target={`#editModal_${post.id}`}>
+                <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                Edit post
+              </button>
+            }
           </div>
         </div>    
         <div className='row'>
@@ -116,6 +118,7 @@ class PostDetail extends Component {
             postId={post.id}
             category={category}/>
             <EditPost 
+            id={post.id}
             post={post}
             editPost={this.props.editPost}/>
           </div>  

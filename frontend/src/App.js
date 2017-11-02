@@ -121,7 +121,8 @@ class App extends Component {
               sortPostsByDate={this.sortPostsByDate}
               sortPostsByScore={this.sortPostsByScore}
               fetchDeletePost={this.deletePost}  
-              addPostVote={this.addPostVote}     
+              addPostVote={this.addPostVote} 
+              editPost={this.editPost}    
             />
   			  )} />
           <Route strict path="/admin/posts/new-post" render={({match}) => (
@@ -139,7 +140,8 @@ class App extends Component {
               sortPostsByDate={this.sortPostsByDate}
               sortPostsByScore={this.sortPostsByScore}
               fetchDeletePost={this.deletePost}  
-              addPostVote={this.addPostVote}            
+              addPostVote={this.addPostVote}   
+              editPost={this.editPost}          
             />
           )} />
           <Route exact path="/:category/:post_id" render={({match}) => (

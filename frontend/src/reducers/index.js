@@ -21,6 +21,9 @@ const initialState = {
   posts:      []
 }
 
+let posts
+let foundIndex
+
 function readableManager (state = initialState, action) {
   switch (action.type) {
     case RECEIVE_CATEGORIES:
@@ -82,7 +85,15 @@ function readableManager (state = initialState, action) {
         comments:   state.comments
       }
     case EDIT_POST:
-      return state
+      posts      = state.posts
+      foundIndex = state.posts.findIndex(x => x.id === action.post.id)
+      posts[foundIndex] = action.post;
+      return {
+        categories: state.categories,
+        posts:      posts,
+        post:       state.post,
+        comments:   state.comments
+      }
     case DELETE_POST:
       return {
         categories: state.categories,
@@ -91,8 +102,8 @@ function readableManager (state = initialState, action) {
         comments:   state.comments
       }
     case VOTE_POST:
-      let posts      = state.posts
-      let foundIndex = state.posts.findIndex(x => x.id === action.post.id)
+      posts      = state.posts
+      foundIndex = state.posts.findIndex(x => x.id === action.post.id)
       posts[foundIndex] = action.post;
       return {
         categories: state.categories,

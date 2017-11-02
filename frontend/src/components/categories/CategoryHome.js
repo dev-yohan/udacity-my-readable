@@ -70,6 +70,7 @@ class CategoryHome extends Component {
           categories={this.props.categories}
           fetchDeletePost={this.props.fetchDeletePost}
           addPostVote={this.props.addPostVote} 
+          editPost={this.props.editPost} 
         />
       </div>
     )
