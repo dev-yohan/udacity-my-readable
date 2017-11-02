@@ -11,9 +11,6 @@ class PostTeaser extends Component {
     this.triggerVote = this.triggerVote.bind(this)
   }
 
-  componentDidMount() {
-  }
-
   getPostComments(post) {
     this.props.fetchPostComments(post)
   }
@@ -26,14 +23,15 @@ class PostTeaser extends Component {
   }
 
   truncate(str) {
-    if (str.length > 100)
-      return str.substr(0, 99)
-     else
-      return str
+    if (str.length > 100) {
+      return str.substr(0, 99);
+    }
+    return str;
   }
 
   render() {
     const { category, post, fetchDeletePost } = this.props
+    const { title, body, author, id, commentCount, voteScore } = post
     const postDate = moment(new Date(post.timestamp));
 
     return (
@@ -41,30 +39,30 @@ class PostTeaser extends Component {
         <div className='thumbnail postTeaser-category'>
           <div className='caption'>
             {category &&
-              <Link to={`${category.path}/${post.id}`}>
+              <Link to={`${category.path}/${id}`}>
                 <h3>
-                {post.title}  
+                {title}  
                 </h3>
               </Link>
             }
-            <h4>{`By ${post.author}`}</h4>
+            <h4>{`By ${author}`}</h4>
             <h5>
               <Moment format="YYYY/MM/DD">
                 {postDate}
               </Moment>
             </h5>
             <p>
-              {this.truncate(post.body)}
+              {this.truncate(body)}
             </p>
             <ul className="nav nav-pills">
               <li className="active">
                 <a>
-                  Votes <span className="badge">{post.voteScore}</span>
+                  Votes <span className="badge">{voteScore}</span>
                 </a>
               </li>
               <li className="active">
                 <a>
-                  Comments <span className="badge">{post.commentCount}</span>
+                  Comments <span className="badge">{commentCount}</span>
                 </a>
               </li>
               <li>
@@ -75,7 +73,7 @@ class PostTeaser extends Component {
             </ul>
             <div className='row post_controls'>
               <div className='col-lg-12 col-md-2 col-sm-12 col-xs-12'>
-                <button className='btn btn-danger btn-xs' onClick={() => fetchDeletePost(post.id)}>
+                <button className='btn btn-danger btn-xs' onClick={() => fetchDeletePost(id)}>
                   <span className="glyphicon glyphicon-trash" aria-hidden="true"></span>
                   Delete post
                 </button>
@@ -88,12 +86,12 @@ class PostTeaser extends Component {
                   <span className="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
                 </button>
               
-                <button className='btn btn-info btn-xs' data-toggle="modal" data-target={`#editModal_${post.id}`}>
+                <button className='btn btn-info btn-xs' data-toggle="modal" data-target={`#editModal_${id}`}>
                   <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>  
                   Edit post
                 </button>
                 <EditPost 
-                id={post.id}
+                id={id}
                 post={post}
                 editPost={this.props.editPost}/>
               </div>  
