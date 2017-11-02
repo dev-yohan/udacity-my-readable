@@ -36,7 +36,7 @@ class PostDetail extends Component {
 
     return (
       <div>
-        {category && post &&
+        {category && post && Object.keys(post).length !== 0 && !post.error &&
           <div className='row'>
             <div className='col-lg-10 col-md-10 col-sm-12 col-xs-12'>
               <ul className="breadcrumb">
@@ -62,8 +62,8 @@ class PostDetail extends Component {
             </div>
           </div>    
         }
-        <div className='row'>
-          {post &&
+        {post && Object.keys(post).length !== 0 && !post.error &&
+          <div className='row'>
             <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
               <span className="badge">{` ${post.voteScore} votes`}</span>
               &nbsp;
@@ -79,19 +79,15 @@ class PostDetail extends Component {
                 {post.body}
               </p>
             </div>
-          }
-        </div>
-        <div className='row'>
-          <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
-            <button 
-            className='btn btn-success btn-xs' 
-            data-toggle="modal" 
-            data-target="#myModal">
-              <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-              Add new comment
-            </button>
-            &nbsp;
-            {post &&
+            <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+              <button 
+              className='btn btn-success btn-xs' 
+              data-toggle="modal" 
+              data-target="#myModal">
+                <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                Add new comment
+              </button>
+              &nbsp;
               <button 
               className='btn btn-success btn-xs' 
               data-toggle="modal" 
@@ -99,9 +95,17 @@ class PostDetail extends Component {
                 <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                 Edit post
               </button>
-            }
-          </div>
-        </div>    
+            </div>
+          </div>  
+        }
+        {((post && post.error) || (post && Object.keys(post).length === 0)) &&
+          <div className='row'>
+            <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+              <h1>Oops, Post not found!!</h1>
+              <Link to='/'>Back to home</Link>
+            </div>
+          </div>    
+        } 
         <div className='row'>
           <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
             <Commentslist 
