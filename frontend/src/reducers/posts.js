@@ -1,7 +1,5 @@
 import {
   RECEIVE_POSTS,
-  RECEIVE_POST,
-  RECEIVE_POST_COMMENTS,
   SORT_POSTS_BY_DATE,
   SORT_POSTS_BY_SCORE,
   ADD_POST,
@@ -11,92 +9,58 @@ import {
   FETCH_CATEGORY_POSTS
 } from '../actions';
 
-let posts
+let currentPosts
 let foundIndex
 
-function postsManager (state = {}, action) {
+function posts (state = [], action) {
   switch (action.type) {
     case RECEIVE_POSTS:
-      return {
-        categories: state.categories,
-        posts:      action.posts.sort(function(a, b) {
+      return [...action.posts.sort(function(a, b) {
          return b.timestamp - a.timestamp;
-        })
-      }
-    case RECEIVE_POST:
-      return {
-        categories: state.categories,
-        posts:      state.posts,
-        post:       action.post,
-        comments:   state.comments
-      }
-    case RECEIVE_POST_COMMENTS:
-      return {
-        categories: state.categories,
-        posts:      state.posts,
-        post:       state.post,
-        comments:   action.comments.sort(function(a, b) {
-          return b.timestamp - a.timestamp;
-         })
-      }
+        })]
     case SORT_POSTS_BY_DATE:
-      return {
-        categories: state.categories,
-        posts:      state.posts.sort(function(a, b) {
+      return [
+        ...state.sort(function(a, b) {
          return b.timestamp - a.timestamp;
         })
-      }
+      ]
     case SORT_POSTS_BY_SCORE:
-      return {
-        categories: state.categories,
-        posts:      state.posts.sort(function(a, b) {
+      return [
+        ...state.sort(function(a, b) {
          return b.voteScore - a.voteScore;
         })
-      }
+      ]
     case FETCH_CATEGORY_POSTS:
-      return {
-        categories: state.categories,
-        posts:      action.posts
-      }
+      return [
+        ...action.posts
+      ]
     case ADD_POST:
-      let oldPosts = state.posts
+      let oldPosts = state
       oldPosts.push(action.post)
-      return {
-        categories: state.categories,
-        posts:      oldPosts,
-        post:       state.post,
-        comments:   state.comments
-      }
+      return [
+        ...oldPosts
+      ]
     case EDIT_POST:
-      posts      = state.posts
-      foundIndex = state.posts.findIndex(x => x.id === action.post.id)
-      posts[foundIndex] = action.post;
-      return {
-        categories: state.categories,
-        posts:      posts,
-        post:       state.post,
-        comments:   state.comments
-      }
+      currentPosts = state
+      foundIndex   = state.findIndex(x => x.id === action.post.id)
+      currentPosts[foundIndex] = action.post;
+      return [
+        ...currentPosts
+      ]
     case DELETE_POST:
-      return {
-        categories: state.categories,
-        posts:      state.posts.filter((x) => x.id !== action.id),
-        post:       state.post,
-        comments:   state.comments
-      }
+      return [
+        ...state.filter((x) => x.id !== action.id),
+      ]
     case VOTE_POST:
-      posts      = state.posts
-      foundIndex = state.posts.findIndex(x => x.id === action.post.id)
-      posts[foundIndex] = action.post;
-      return {
-        categories: state.categories,
-        posts:      posts,
-        post:       state.post,
-        comments:   state.comments
-      } 
+      currentPosts = state
+      foundIndex   = state.findIndex(x => x.id === action.post.id)
+      currentPosts[foundIndex] = action.post;
+      return [
+        ...currentPosts
+      ]
     default:
       return state
   }
 }
 
-export default postsManager
+export default posts

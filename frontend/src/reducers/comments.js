@@ -1,33 +1,27 @@
 import {
+  RECEIVE_POST_COMMENTS,
   ADD_COMMENT,
   EDIT_COMMENT,
   DELETE_COMMENT,
   VOTE_COMMENT
 } from '../actions';
 
-function commentsManager (state = {}, action) {
+function comments (state = [], action) {
   switch (action.type) {
+    case RECEIVE_POST_COMMENTS:
+      return [
+        ...action.comments.sort(function(a, b) {
+          return b.timestamp - a.timestamp;
+        })
+      ]
     case ADD_COMMENT:
-      return {
-        categories: state.categories,
-        posts:      state.posts.filter((x) => x.id !== action.id),
-        post:       state.post,
-        comments:   state.comments
-      }
+      return state
     case EDIT_COMMENT:
-      return {
-        categories: state.categories,
-        posts:      state.posts,
-        post:       state.post,
-        comments:   state.comments
-      }
+      return state
     case DELETE_COMMENT:
-      return {
-        categories: state.categories,
-        posts:      state.posts,
-        post:       state.post,
-        comments:   state.comments.filter((x) => x.id !== action.comment.id)
-      }
+      return [
+        ...state.filter((x) => x.id !== action.comment.id)
+      ]
     case VOTE_COMMENT:
       return state  
     default:
@@ -35,4 +29,4 @@ function commentsManager (state = {}, action) {
   }
 }
 
-export default commentsManager
+export default comments
