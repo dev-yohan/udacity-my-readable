@@ -25,10 +25,6 @@ class PostDetail extends Component {
     this.props.getPostComments(this.props.postId)
   }
 
-  componentWillReceiveProps(nextProps) {
-
-  }
-
   render() {
     const { post, comments } = this.props
     const category = this.props.categories.filter(x => x.name === this.props.category)[0]
