@@ -4,7 +4,7 @@ import {
   EDIT_COMMENT,
   DELETE_COMMENT,
   VOTE_COMMENT
-} from '../actions';
+} from '../actions/action_types';
 
 function comments (state = [], action) {
   switch (action.type) {

@@ -1,6 +1,6 @@
 import {
   RECEIVE_POST,
-} from '../actions';
+} from '../actions/action_types';
 
 function post (state = [], action) {
   switch (action.type) {

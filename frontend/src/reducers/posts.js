@@ -7,7 +7,7 @@ import {
   DELETE_POST,
   VOTE_POST,
   FETCH_CATEGORY_POSTS
-} from '../actions';
+} from '../actions/action_types';
 
 let currentPosts
 let foundIndex
