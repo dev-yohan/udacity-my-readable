@@ -1,4 +1,6 @@
 import React, {Component} from 'react'
+import FlashMessage from '../shared/FlashMessage'
+import AlertMessage from '../shared/AlertMessage'
 import * as Guid from '../../util/guid'
 
 class NewPost extends Component {
@@ -74,29 +76,17 @@ class NewPost extends Component {
           </div>  
         </div>
         {this.state.flashMessage &&
-          <div className='row'>
-            <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
-              <div className="alert alert-dismissible alert-success">
-                <button type="button" className="close" data-dismiss="alert">
-                  &times;
-                </button>
-                <strong>Well done!</strong> You successfully save a new post 
-                  <a href="/" className="alert-link"> Back to Home</a>.
-              </div> 
-            </div>
-          </div>    
+          <FlashMessage 
+            messageIntro='Well done!'
+            messageInfo=' You successfully save a new post'
+            callbackInfo=' Back to Home'
+            callbackLink='/'
+          />
         }
         {!this.state.formValid &&
-          <div className='row'>
-            <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
-              <div className="alert alert-dismissible alert-danger">
-                <button type="button" className="close" data-dismiss="alert">
-                  &times;
-                </button>
-                All fields are required   
-              </div> 
-            </div>
-          </div>    
+          <AlertMessage 
+            messageInfo='All fields are required'
+          />   
         }
         <div className='row'>
           <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
