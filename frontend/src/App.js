@@ -1,23 +1,30 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+
 import {
-  fetchCategories,
   createPost,
-  createPostComment,
   fetchDeletePost,
   fetchEditPost,
-  fetchDeleteComment,
-  fetchEditComment,
   fetchPosts,
   fetchPost,
   fetchPostsByCategory,
-  fetchPostComments,
   addPostVote,
   sortPostsByDate,
   sortPostsByScore,
-  addCommentVote
-} from './actions'
+} from './actions/posts_actions'
+
+import {
+  createPostComment,
+  fetchDeleteComment,
+  fetchEditComment,
+  fetchPostComments,
+  addCommentVote,
+} from './actions/comments_actions'
+
+import {
+  fetchCategories,
+} from './actions/categories_actions'
 
 import { Route }      from 'react-router-dom'
 import Header         from './components/shared/Header'
