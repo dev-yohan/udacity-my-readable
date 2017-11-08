@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import PostsList from './posts/PostsList'
-import { Link } from 'react-router-dom'
+import PostsList          from './posts/PostsList'
+import PostsFilter        from './shared/PostsFilter'
+import { Link }           from 'react-router-dom'
 
 class Home extends Component {
 
@@ -38,14 +39,10 @@ class Home extends Component {
             </ul>
           </div>
           <div className='col-lg-2 col-md-2 col-sm-12 col-xs-12'>
-            <div className="dropdown sorter pull-right">
-              {`Sort by ` }
-              <select  onChange={this.filterBy} value={this.state.sortBy}>
-                <option value="select">Select</option>
-                <option value="date">Date</option>
-                <option value="score">Vote score</option>
-              </select>
-            </div>
+            <PostsFilter 
+              value={this.state.sortBy}
+              changeHandler={this.filterBy}
+            />
           </div>
         </div>
         <div className='row'>
