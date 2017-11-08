@@ -1,7 +1,10 @@
 import React, {Component} from 'react'
-import FlashMessage from '../shared/FlashMessage'
-import AlertMessage from '../shared/AlertMessage'
-import * as Guid from '../../util/guid'
+import FlashMessage       from '../shared/FlashMessage'
+import AlertMessage       from '../shared/AlertMessage'
+import InputText          from '../forms/InputText'
+import InputTextArea      from '../forms/InputTextArea'
+import Select             from '../forms/Select'
+import * as Guid          from '../../util/guid'
 
 class NewPost extends Component {
   constructor(props) {
@@ -92,60 +95,30 @@ class NewPost extends Component {
           <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
             <form className="form-horizontal" onSubmit={this.handleSubmit}>
               <fieldset>
-                <div className="form-group">
-                  <label className="col-lg-2 control-label">Title</label>
-                  <div className="col-lg-10">
-                    <input 
-                    type="text" 
-                    className="form-control" 
-                    placeholder="Title" 
-                    value={this.state.postTitle}
-                    onChange={this.handleTitleChange}
-                    required/>
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="select" className="col-lg-2 control-label">
-                    Category
-                  </label>
-                  <div className="col-lg-10">
-                    <select 
-                    className="form-control" 
-                    onChange={this.handleCategoryChange} 
-                    value={this.state.category}
-                    id="select"
-                    required>
-                      {categories.map((category) => (
-                        <option value={category.name} key={category.name}>{category.name}</option>
-                      ))}
-                    </select>
-                  </div>
-                </div>    
-                <div className="form-group">
-                  <label className="col-lg-2 control-label">Author</label>
-                  <div className="col-lg-10">
-                    <input 
-                    type="text" 
-                    className="form-control" 
-                    placeholder="Author" 
-                    onChange={this.handleAuthorChange}
-                    value={this.state.author}
-                    required/>
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="textArea" className="col-lg-2 control-label">Body</label>
-                  <div className="col-lg-10">
-                    <textarea 
-                    className="form-control" 
-                    rows="6" 
-                    id="textArea" 
-                    onChange={this.handleBodyChange}
-                    value={this.state.body}
-                    required>
-                    </textarea>
-                  </div>
-                </div>
+                <InputText 
+                  value={this.state.postTitle}
+                  placeholder="Title"
+                  label="Title"
+                  changeHandler={this.handleTitleChange}
+                />
+                <Select 
+                  value={this.state.category}
+                  label="Category"
+                  options={categories}
+                  changeHandler={this.handleCategoryChange}
+                />
+                <InputText 
+                  value={this.state.author}
+                  placeholder="Author"
+                  label="Author"
+                  changeHandler={this.handleAuthorChange}
+                />
+                <InputTextArea 
+                  value={this.state.body}
+                  label="Body"
+                  rows="6"
+                  changeHandler={this.handleBodyChange}
+                /> 
                 <div className="form-group pull-right">
                   <button type="reset" className="btn btn-default">Cancel</button>
                   <button type="submit" className="btn btn-primary">Submit</button>

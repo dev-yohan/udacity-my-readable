@@ -1,4 +1,7 @@
 import React, {Component} from 'react'
+import InputText          from '../forms/InputText'
+import InputTextArea      from '../forms/InputTextArea' 
+import FlashMessage       from '../shared/FlashMessage'
 
 class EditPost extends Component {
   constructor(props) {
@@ -45,46 +48,29 @@ class EditPost extends Component {
             </div>
             <div className="modal-body">
               {this.state.flashMessage &&
-                <div className='row'>
-                  <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
-                    <div className="alert alert-dismissible alert-success">
-                      <button type="button" className="close" data-dismiss="alert">
-                        &times;
-                      </button>
-                      <strong>Well done!</strong> You successfully edit your post 
-                    </div> 
-                  </div>
-                </div>    
+                <FlashMessage 
+                  messageIntro='Well done!'
+                  messageInfo=' You successfully edit your post'
+                  callbackInfo=' Back to Home'
+                  callbackLink='/'
+                />    
               }
               <div className='row'>
                 <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
                   <form className="form-horizontal" onSubmit={this.handleSubmit}>
                     <fieldset>
-                      <div className="form-group">
-                        <label className="col-lg-2 control-label">Title</label>
-                        <div className="col-lg-10">
-                          <input 
-                          type="text" 
-                          className="form-control" 
-                          placeholder="Title" 
-                          value={this.state.postTitle}
-                          onChange={this.handleTitleChange}
-                          required/>
-                        </div>
-                      </div>
-                      <div className="form-group">
-                        <label htmlFor="textArea" className="col-lg-2 control-label">Body</label>
-                        <div className="col-lg-10">
-                          <textarea 
-                          className="form-control" 
-                          rows="6" 
-                          id="textArea" 
-                          onChange={this.handleBodyChange}
-                          value={this.state.body}
-                          required>
-                          </textarea>
-                        </div>
-                      </div>
+                      <InputText 
+                        value={this.state.postTitle}
+                        placeholder="Title"
+                        label="Title"
+                        changeHandler={this.handleTitleChange}
+                      />
+                      <InputTextArea 
+                        value={this.state.body}
+                        label="Body"
+                        rows="6"
+                        changeHandler={this.handleBodyChange}
+                      /> 
                       <div className="form-group pull-right">
                         <button type="reset" className="btn btn-default">Cancel</button>
                         <button type="submit" className="btn btn-primary">Submit</button>
