@@ -105,22 +105,27 @@ class PostDetail extends Component {
         <div className='row'>
           <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
             <Commentslist 
-            comments={comments}
-            addCommentVote={this.props.addCommentVote}
-            deleteComment={this.props.deleteComment}
-            editComment={this.props.editComment}/>
+              comments={comments}
+              addCommentVote={this.props.addCommentVote}
+              deleteComment={this.props.deleteComment}
+              editComment={this.props.editComment}
+              category={category}
+              post={post}
+            />
           </div>
         </div>
         {post &&
           <div>
             <PostComment 
-            createPostComment={this.props.createPostComment} 
-            postId={post.id}
-            category={category}/>
+              createPostComment={this.props.createPostComment} 
+              postId={post.id}
+              category={category}
+            />
             <EditPost 
-            id={post.id}
-            post={post}
-            editPost={this.props.editPost}/>
+              id={post.id}
+              post={post}
+              editPost={this.props.editPost}
+            />
           </div>  
         }
       </div>

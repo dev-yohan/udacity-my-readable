@@ -3,7 +3,7 @@ import Moment from 'react-moment'
 import moment from 'moment'
 import EditComment from './EditComment'
 
-export default function CommentBlock({ comment, addCommentVote, deleteComment, editComment }) {
+export default function CommentBlock({ comment, addCommentVote, deleteComment, editComment, category, post }) {
   const commentDate = comment ? moment(new Date(comment.timestamp)) : null;
 
   return (
@@ -44,8 +44,11 @@ export default function CommentBlock({ comment, addCommentVote, deleteComment, e
         </li>
       </ul>
       <EditComment 
-      editComment={editComment}
-      comment={comment}/>
+        editComment={editComment}
+        comment={comment}
+        category={category}
+        post={post}
+      />
     </blockquote>
   )
 }

@@ -8,11 +8,12 @@ export default function Select({value, label, options, changeHandler}) {
       </label>
       <div className="col-lg-10">
         <select 
-        className="form-control" 
-        onChange={changeHandler} 
-        value={value}
-        id="select"
-        required>
+          className="form-control" 
+          onChange={changeHandler} 
+          value={value}
+          id="select"
+          required
+        >
           {options.map((option) => (
             <option value={option.name} key={option.name}>{option.name}</option>
           ))}

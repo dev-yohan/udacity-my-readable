@@ -1,5 +1,8 @@
 import React, {Component} from 'react'
-import * as Guid from '../../util/guid'
+import FlashMessage       from '../shared/FlashMessage'
+import InputText          from '../forms/InputText'
+import InputTextArea      from '../forms/InputTextArea'
+import * as Guid          from '../../util/guid'
 
 class PostComment extends Component {
 
@@ -59,47 +62,27 @@ class PostComment extends Component {
             </div>
             <div className="modal-body">
               {this.state.flashMessage &&
-                <div className='row'>
-                  <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
-                    <div className="alert alert-dismissible alert-success">
-                      <button type="button" className="close" data-dismiss="alert">
-                        &times;
-                      </button>
-                      <strong>Well done!</strong> You successfully save a new comment 
-                        <a href={`/${this.props.category.path}/${this.props.postId}`} className="alert-link"> 
-                          {' Back to Post'}
-                        </a>.
-                    </div> 
-                  </div>
-                </div>    
+                <FlashMessage 
+                  messageIntro='Well done!'
+                  messageInfo=' You successfully save a new comment'
+                  callbackInfo=' Back to Post'
+                  callbackLink={`/${this.props.category.path}/${this.props.postId}`}
+                />
               }
               <form className="form-horizontal" onSubmit={this.handleSubmit}>
                 <fieldset>
-                  <div className="form-group">
-                    <label className="col-lg-2 control-label">Author</label>
-                    <div className="col-lg-10">
-                      <input 
-                      type="text" 
-                      className="form-control" 
-                      placeholder="Author"
-                      onChange={this.handleAuthorChange}
-                      value={this.state.author}
-                      required/>
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="textArea" className="col-lg-2 control-label">Body</label>
-                    <div className="col-lg-10">
-                      <textarea 
-                      className="form-control" 
-                      rows="6" 
-                      id="textArea"
-                      onChange={this.handleBodyChange}
-                      value={this.state.body} 
-                      required>
-                      </textarea>
-                    </div>
-                  </div>
+                  <InputText 
+                    value={this.state.author}
+                    placeholder="Author"
+                    label="Author"
+                    changeHandler={this.handleAuthorChange}
+                  />
+                  <InputTextArea 
+                    value={this.state.body}
+                    label="Body"
+                    rows="6"
+                    changeHandler={this.handleBodyChange}
+                  /> 
                   <div className="modal-footer">
                     <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="submit" className="btn btn-primary">Save changes</button>

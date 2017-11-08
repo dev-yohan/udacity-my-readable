@@ -6,12 +6,13 @@ export default function InputText({placeholder, label, value, changeHandler}) {
       <label className="col-lg-2 control-label">{label}</label>
       <div className="col-lg-10">
         <input 
-        type="text" 
-        className="form-control" 
-        placeholder={placeholder} 
-        value={value}
-        onChange={changeHandler}
-        required/>
+          type="text" 
+          className="form-control" 
+          placeholder={placeholder} 
+          value={value}
+          onChange={changeHandler}
+          required
+        />
       </div>
     </div>
   )
