@@ -7,7 +7,7 @@ import {
 export function fetchCategories (dispatch) {
   ContentApi
     .getCategories()
-    .then(categories => dispatch(receiveCategories(categories)))
+    .then(data => dispatch(receiveCategories(data.categories)))
 }
 
 export function receiveCategories (categories) {
