@@ -6,11 +6,13 @@ import moment             from 'moment'
 import PostComment        from './PostComment'
 import EditPost           from './EditPost'
 
+
 class PostDetail extends Component {
 
   constructor(props) {
     super(props);
     this.triggerVote = this.triggerVote.bind(this)
+    this.deletePost  = this.deletePost.bind(this)
   }
 
   triggerVote (vote){ 
@@ -18,6 +20,11 @@ class PostDetail extends Component {
       this.props.postId,
       {option: vote}
     )
+  }
+
+  deletePost (id) {
+    this.props.fetchDeletePost(id)
+    this.props.history.push('/');
   }
 
   componentDidMount() {
@@ -77,19 +84,26 @@ class PostDetail extends Component {
             </div>
             <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
               <button 
-              className='btn btn-success btn-xs' 
-              data-toggle="modal" 
-              data-target="#myModal">
+                className='btn btn-success btn-xs' 
+                data-toggle="modal" 
+                data-target="#myModal">
                 <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                 Add new comment
               </button>
               &nbsp;
               <button 
-              className='btn btn-success btn-xs' 
-              data-toggle="modal" 
-              data-target={`#editModal_${post.id}`}>
+                className='btn btn-success btn-xs' 
+                data-toggle="modal" 
+                data-target={`#editModal_${post.id}`}>
                 <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                 Edit post
+              </button>
+              &nbsp;
+              <button 
+                className='btn btn-danger btn-xs'
+                onClick={() => this.deletePost(post.id)}>
+                <span className="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                Delete post
               </button>
             </div>
           </div>  

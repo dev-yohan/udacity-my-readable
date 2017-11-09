@@ -167,7 +167,9 @@ class App extends Component {
               addCommentVote={this.addCommentVote}
               deleteComment={this.deleteComment}
               editPost={this.editPost}
-              editComment={this.editComment}/>
+              editComment={this.editComment}
+              fetchDeletePost={this.deletePost}
+              history={this.props.history}/>
           )} />
           
         </div>
