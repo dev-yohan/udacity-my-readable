@@ -16,22 +16,9 @@ function getRequest(path) {
     })
 }
 
-function postRequest(path, body) {
+function postRequest(method, path, body) {
   return fetch(path, { 
-    method: 'post',
-    body:    JSON.stringify(body),
-    headers: headers })
-    .then((res) => {
-      return res.json()
-    })
-    .then((data) => {
-      return data
-    })
-}
-
-function putRequest(path, body) {
-  return fetch(path, { 
-    method: 'put',
+    method:  method,
     body:    JSON.stringify(body),
     headers: headers })
     .then((res) => {
@@ -75,11 +62,11 @@ export function getPostComments(id) {
 }
 
 export function addPost(body) {
-  return postRequest(`${CONTENT_API}/posts`, body)  
+  return postRequest('post', `${CONTENT_API}/posts`, body)  
 }
 
 export function editPost(id, body) {
-  return putRequest(`${CONTENT_API}/posts/${id}`, body)  
+  return postRequest('put', `${CONTENT_API}/posts/${id}`, body)  
 }
 
 export function deletePost(id) {
@@ -87,15 +74,15 @@ export function deletePost(id) {
 }
 
 export function addPostComment(body) {
-  return postRequest(`${CONTENT_API}/comments`, body)
+  return postRequest('post', `${CONTENT_API}/comments`, body)
 }
 
 export function addPostVote(postId, body) {
-  return postRequest(`${CONTENT_API}/posts/${postId}`, body)
+  return postRequest('post', `${CONTENT_API}/posts/${postId}`, body)
 }
 
 export function addCommentVote(commentId, body) {
-  return postRequest(`${CONTENT_API}/comments/${commentId}`, body)
+  return postRequest('post', `${CONTENT_API}/comments/${commentId}`, body)
 }
 
 export function deleteComment(id) {
@@ -103,5 +90,5 @@ export function deleteComment(id) {
 }
 
 export function editComment(id, body) {
-  return putRequest(`${CONTENT_API}/comments/${id}`, body)
+  return postRequest('put', `${CONTENT_API}/comments/${id}`, body)
 }
