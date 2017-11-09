@@ -31,7 +31,6 @@ import Header         from './components/shared/Header'
 import NewPost        from './components/posts/NewPost' 
 import PostDetail     from './components/posts/PostDetail'
 import Home           from './components/Home'
-import CategoryHome   from './components/categories/CategoryHome'
 
 class App extends Component {
 
