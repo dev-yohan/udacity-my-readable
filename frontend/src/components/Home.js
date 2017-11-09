@@ -25,7 +25,21 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.props.getAllPosts()
+    if(this.props.category === null){
+      this.props.getAllPosts()
+    } else {
+      this.props.getPostsByCategory(this.props.category)
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    var nextCategory = null
+    if(this.props.category !== null){
+      nextCategory = nextProps.category;
+      if (nextCategory !== this.props.category) {
+        this.props.getPostsByCategory(nextCategory)
+      }
+    }
   }
 
   render() {
@@ -34,9 +48,19 @@ class Home extends Component {
       <div>
         <div className='row'>
           <div className='col-lg-10 col-md-10 col-sm-12 col-xs-12'>
-            <ul className="breadcrumb">
-              <li className="active">Home</li>
-            </ul>
+              {this.props.category === null &&
+                <ul className="breadcrumb">
+                  <li className="active">Home</li>
+                </ul>  
+              }
+              {this.props.category !== null &&
+                <ul className="breadcrumb">
+                  <li>
+                    <Link to='/'>Home</Link>
+                  </li>
+                  <li className="active">{this.props.category}</li>
+                </ul>  
+              }
           </div>
           <div className='col-lg-2 col-md-2 col-sm-12 col-xs-12'>
             <PostsFilter 

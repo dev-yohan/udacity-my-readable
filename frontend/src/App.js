@@ -124,12 +124,14 @@ class App extends Component {
             <Home
               posts={posts}
               categories={categories}
+              category={null}
               getAllPosts={this.getAllPosts}
               sortPostsByDate={this.sortPostsByDate}
               sortPostsByScore={this.sortPostsByScore}
               fetchDeletePost={this.deletePost}  
               addPostVote={this.addPostVote} 
-              editPost={this.editPost}    
+              editPost={this.editPost}  
+              getPostsByCategory={this.getPostsByCategory}  
             />
   			  )} />
           <Route strict path="/admin/posts/new-post" render={({match}) => (
@@ -139,16 +141,17 @@ class App extends Component {
             />
           )} />
           <Route exact path="/:category" render={({match}) => (
-            <CategoryHome
+            <Home
               posts={posts}
               categories={categories}
               category={match.params.category}
-              getPostsByCategory={this.getPostsByCategory}
+              getAllPosts={this.getAllPosts}
               sortPostsByDate={this.sortPostsByDate}
               sortPostsByScore={this.sortPostsByScore}
               fetchDeletePost={this.deletePost}  
-              addPostVote={this.addPostVote}   
-              editPost={this.editPost}          
+              addPostVote={this.addPostVote} 
+              editPost={this.editPost}  
+              getPostsByCategory={this.getPostsByCategory}  
             />
           )} />
           <Route exact path="/:category/:post_id" render={({match}) => (
